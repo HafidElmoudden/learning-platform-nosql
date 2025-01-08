@@ -74,5 +74,9 @@ Je vous propose une structure de code qui suit les bonnes pratiques de développ
 
    2. **Comment gérer proprement la fermeture des connexions ?**
       Pour fermer proprement les connexions, On doit utiliser des événements comme `close` ou `end` pour détecter la fin de la connexion. Par exemple, avec MongoDB, on utilise `mongoClient.close()` pour fermer la connexion. Egalement, Il est aussi important de gérer les erreurs et de s'assurer que les ressources sont libérées correctement pour éviter les fuites de mémoire (En anglais `Memory Leaks`) et garantir une terminaison propre de l'application.
+### services
+#### Fichier concerné : `mongoService.js`
+   1. **Pourquoi créer des services séparés ?**
+   La création de services séparés permet de séparer les responsabilités au sein du code. Cela rend le code plus modulaire, facilitant ainsi sa maintenance et son évolution. Chaque service peut se concentrer sur une tâche spécifique, ce qui améliore la lisibilité et la testabilité du code.
 
 #### Bon courage
