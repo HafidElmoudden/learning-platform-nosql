@@ -67,5 +67,12 @@ Je vous propose une structure de code qui suit les bonnes pratiques de développ
 
    2. **Que se passe-t-il si une variable requise est manquante ?**
       Si une variable requise est manquante, une erreur explicite est levée, indiquant quelle variable manque. Cela empêche l'application de démarrer avec une configuration incomplète et permet à l'équipe de développement de corriger le problème avant de déployer l'application.
+* #### Fichier concerné : `db.js`
+
+   1. **Pourquoi créer un module séparé pour les connexions aux bases de données ?**
+      Avoir un module séparé permettre de centraliser la gestion des connexions aux bases de données. Ce qui rendre le code plus modulaire, rétuilisable et facile a maintenir. Egalement, cette separation de la logique de connexion de la logique métier, simplifie la gestion des erreurs, des reconnexions et de la configurations. Ce qui rendre le code plus propre et plus testable.
+
+   2. **Comment gérer proprement la fermeture des connexions ?**
+      Pour fermer proprement les connexions, On doit utiliser des événements comme `close` ou `end` pour détecter la fin de la connexion. Par exemple, avec MongoDB, on utilise `mongoClient.close()` pour fermer la connexion. Egalement, Il est aussi important de gérer les erreurs et de s'assurer que les ressources sont libérées correctement pour éviter les fuites de mémoire (En anglais `Memory Leaks`) et garantir une terminaison propre de l'application.
 
 #### Bon courage
