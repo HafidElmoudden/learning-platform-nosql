@@ -57,4 +57,15 @@ Je vous propose une structure de code qui suit les bonnes pratiques de développ
 4. Testez chaque fonctionnalité au fur et à mesure
 5. Documentez vos choix et vos réflexions en ajoutant des copies d'écrans à votre fichier README.md
 
+### Mes réponses
+### Config
+
+* #### Fichier concerné : `env.js`
+
+   1. **Pourquoi est-il important de valider les variables d'environnement au démarrage ?**
+      La validation des variables d'environnement au démarrage permet de s'assurer que toutes les configurations nécessaires sont présentes avant que l'application ne commence à fonctionner. Cela évite des erreurs inattendues pendant de l'exécution, et garantissant ainsi une application plus fiable.
+
+   2. **Que se passe-t-il si une variable requise est manquante ?**
+      Si une variable requise est manquante, une erreur explicite est levée, indiquant quelle variable manque. Cela empêche l'application de démarrer avec une configuration incomplète et permet à l'équipe de développement de corriger le problème avant de déployer l'application.
+
 #### Bon courage
