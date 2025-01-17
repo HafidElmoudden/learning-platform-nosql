@@ -129,7 +129,9 @@ _Cette image présente la vue des statistiques récupérées de l'application._
 
 ### 5. **Vérification de Redis**
 ![La vérification de redis](screenshots/Redis%20Database.png)
-_Ici, on peut verifier que le caching bien fonctionne._
+![La vérification de redis avec le champ course_*](screenshots/Redis%20Database%20course.png)
+![La vérification de redis avec le champ course_stats](screenshots/Redis%20Database%20course_stats.png)
+_Ces images nous permette de verifier que le caching avec Redis bien fonctionne._
 
 # Choix Techniques
 
