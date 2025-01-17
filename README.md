@@ -58,7 +58,7 @@ Je vous propose une structure de code qui suit les bonnes pratiques de développ
 5. Documentez vos choix et vos réflexions en ajoutant des copies d'écrans à votre fichier README.md
 
 # Mes réponses
-### src/Config
+### src/config
 
 * #### Fichier concerné : `env.js`
 
@@ -78,30 +78,30 @@ Je vous propose une structure de code qui suit les bonnes pratiques de développ
 * #### Fichier concerné : `mongoService.js`
    1. **Pourquoi créer des services séparés ?**
    La création de services séparés permet de séparer les responsabilités au sein du code. Cela rend le code plus modulaire, facilitant ainsi sa maintenance et son évolution. Chaque service peut se concentrer sur une tâche spécifique, ce qui améliore la lisibilité et la testabilité du code.
-#### Fichier concerné : `redisService.js`
+* #### Fichier concerné : `redisService.js`
    1. **Comment gérer efficacement le cache avec Redis ?**
    Gérez le cache en utilisant des stratégies comme le TTL pour éviter d’utiliser trop de mémoire, et utilisez des clés bien organisées pour que ce soit plus simple à gérer.
    2. **Quelles sont les bonnes pratiques pour les clés Redis ?**
    Utilisez un format pareil pour nommer les clés, évitez de faire des clés trop longues, et mettez des noms simples qui aident à comprendre et à résoudre les problèmes.
-* ### src/controllers
-#### Fichier concerné : `courseController.js`
+### src/controllers
+* #### Fichier concerné : `courseController.js`
    1. **Quelle est la différence entre un contrôleur et une route ?**
    Une route sert à définir l’URL et la méthode HTTP pour une requête, et le contrôleur contient la logique qui s’occupe de cette requête.
    2. **Pourquoi séparer la logique métier des routes ?**
    Séparer la logique des routes rend le code plus facile à lire, à modifier et à tester, car ça sépare la gestion des requêtes et la logique de l’application.
-* ### src/routes
-#### Fichier concerné : `courseRoutes.js`
+### src/routes
+* #### Fichier concerné : `courseRoutes.js`
    1. **Pourquoi séparer les routes dans différents fichiers ?**
    Pour que le code soit plus simple à comprendre, à changer et mieux rangé en mettant les routes par fonctionnalité ou module.
    2. **Comment organiser les routes de manière cohérente ?**
    Faites un fichier par module, ajoutez des préfixes d’URL clairs, et mettez ensemble les routes qui sont liées avec une structure logique.
-* ### src
-#### Fichier concerné : `app.js`
+### src
+* #### Fichier concerné : `app.js`
    1. **Comment structurer le point d'entrée de l'application ?**
 Le point d'entrée de l'application peut être organisé en créant un fichier principal, comme App.js. Dans ce fichier, on initialise le serveur, on configure les middlewares, et on déclare les routes avant de lancer l'écoute sur un port spécifique.
    2. **Quelle est la méthode recommandée pour démarrer l'application ?**
 La méthode recommandée consiste à centraliser l'initialisation dans un fichier principal comme App.js. Vous y configurez les middlewares, définissez les routes, et démarrez l'écoute du serveur sur le port souhaité.
-#### Fichier concerné : `.env`
+* #### Fichier concerné : `.env`
    1. **Quelles sont les informations sensibles à ne jamais commiter ?**
 Les informations sensibles incluent les clés API, les mots de passe, les URI des bases de données, les jetons d'accès, les secrets de configuration, ainsi que toute donnée confidentielle.
    2. **Pourquoi utiliser des variables d'environnement ?**
