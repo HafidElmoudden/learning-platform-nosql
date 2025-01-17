@@ -57,8 +57,8 @@ Je vous propose une structure de code qui suit les bonnes pratiques de développ
 4. Testez chaque fonctionnalité au fur et à mesure
 5. Documentez vos choix et vos réflexions en ajoutant des copies d'écrans à votre fichier README.md
 
-### Mes réponses
-### Config
+# Mes réponses
+### src/Config
 
 * #### Fichier concerné : `env.js`
 
@@ -74,9 +74,98 @@ Je vous propose une structure de code qui suit les bonnes pratiques de développ
 
    2. **Comment gérer proprement la fermeture des connexions ?**
       Pour fermer proprement les connexions, On doit utiliser des événements comme `close` ou `end` pour détecter la fin de la connexion. Par exemple, avec MongoDB, on utilise `mongoClient.close()` pour fermer la connexion. Egalement, Il est aussi important de gérer les erreurs et de s'assurer que les ressources sont libérées correctement pour éviter les fuites de mémoire (En anglais `Memory Leaks`) et garantir une terminaison propre de l'application.
-### services
-#### Fichier concerné : `mongoService.js`
+### src/services
+* #### Fichier concerné : `mongoService.js`
    1. **Pourquoi créer des services séparés ?**
    La création de services séparés permet de séparer les responsabilités au sein du code. Cela rend le code plus modulaire, facilitant ainsi sa maintenance et son évolution. Chaque service peut se concentrer sur une tâche spécifique, ce qui améliore la lisibilité et la testabilité du code.
+#### Fichier concerné : `redisService.js`
+   1. **Comment gérer efficacement le cache avec Redis ?**
+   Gérez le cache en utilisant des stratégies comme le TTL pour éviter d’utiliser trop de mémoire, et utilisez des clés bien organisées pour que ce soit plus simple à gérer.
+   2. **Quelles sont les bonnes pratiques pour les clés Redis ?**
+   Utilisez un format pareil pour nommer les clés, évitez de faire des clés trop longues, et mettez des noms simples qui aident à comprendre et à résoudre les problèmes.
+* ### src/controllers
+#### Fichier concerné : `courseController.js`
+   1. **Quelle est la différence entre un contrôleur et une route ?**
+   Une route sert à définir l’URL et la méthode HTTP pour une requête, et le contrôleur contient la logique qui s’occupe de cette requête.
+   2. **Pourquoi séparer la logique métier des routes ?**
+   Séparer la logique des routes rend le code plus facile à lire, à modifier et à tester, car ça sépare la gestion des requêtes et la logique de l’application.
+* ### src/routes
+#### Fichier concerné : `courseRoutes.js`
+   1. **Pourquoi séparer les routes dans différents fichiers ?**
+   Pour que le code soit plus simple à comprendre, à changer et mieux rangé en mettant les routes par fonctionnalité ou module.
+   2. **Comment organiser les routes de manière cohérente ?**
+   Faites un fichier par module, ajoutez des préfixes d’URL clairs, et mettez ensemble les routes qui sont liées avec une structure logique.
+* ### src
+#### Fichier concerné : `app.js`
+   1. **Comment structurer le point d'entrée de l'application ?**
+Le point d'entrée de l'application peut être organisé en créant un fichier principal, comme App.js. Dans ce fichier, on initialise le serveur, on configure les middlewares, et on déclare les routes avant de lancer l'écoute sur un port spécifique.
+   2. **Quelle est la méthode recommandée pour démarrer l'application ?**
+La méthode recommandée consiste à centraliser l'initialisation dans un fichier principal comme App.js. Vous y configurez les middlewares, définissez les routes, et démarrez l'écoute du serveur sur le port souhaité.
+#### Fichier concerné : `.env`
+   1. **Quelles sont les informations sensibles à ne jamais commiter ?**
+Les informations sensibles incluent les clés API, les mots de passe, les URI des bases de données, les jetons d'accès, les secrets de configuration, ainsi que toute donnée confidentielle.
+   2. **Pourquoi utiliser des variables d'environnement ?**
+Les variables d'environnement permettent de garder les informations sensibles et les configurations en dehors du code source. Cela améliore la sécurité, rend l'application plus flexible, et facilite son portage entre différents environnements.
+
+## Illustrations
+
+Voici quelques captures d'écran pour illustrer le fonctionnement de l'application.
+
+### 1. **Création de la base de données et des collections**
+![Création de BD et Collection](screenshots/MongoDb%20Database.png)
+_Cette image montre la création de la base de données et des collections dans MongoDB pour le projet._
+
+### 2. **Création d'un cours**
+![La création d'un cours](screenshots/Post%20Course.png)
+_Ici, on voit le formulaire de création d'un cours dans l'application._
+
+### 3. **Recherche d'un cours avec l'ID**
+![La recherche d'un cours avec l'id](screenshots/Get%20Course%20Id.png)
+_Cette capture d'écran montre la fonctionnalité de recherche d'un cours en utilisant son ID._
+
+### 4. **Récupération des statistiques**
+![La récupération des statistiques](screenshots/Get%20Course%20Stats.png)
+_Cette image présente la vue des statistiques récupérées de l'application._
+
+### 5. **Vérification de Redis**
+![La vérification de redis](screenshots/Redis%20Database.png)
+_Ici, on peut verifier que le caching bien fonctionne._
+
+# Choix Techniques
+
+## Variables d'environnement
+
+Les informations sensibles comme l'URI MongoDB sont sauvegardées dans un fichier `.env`. Cela permet de sécuriser l'application et de simplifier son déploiement sur différents environnements (développement, production).
+
+## Gestion des Bases de Données
+
+- **MongoDB** : Utilisée comme base NoSQL principale pour gérer les cours et les utilisateurs.
+- **Redis** : Sert de cache pour accélérer les requêtes répétées et améliorer les performances globales.
+
+## Séparation des Routes et de la Logique Métier
+
+Le projet adopte une structure modulaire claire :
+
+- **Routes** : Gèrent les points d'entrée API.
+- **Contrôleurs** : Contiennent la logique métier principale.
+- **Services** : S'occupent des interactions avec les bases de données.
+
+## Utilisation de Nodemon en Développement
+
+Nodemon est mis en place pour redémarrer automatiquement le serveur dès qu'il y a une modification dans le code. Cela simplifie énormément le processus de développement.
+
+## Test des Routes avec Postman
+
+Les endpoints de l'API sont testés via Postman afin de vérifier leur bon fonctionnement et leur fiabilité.
+
+## Gestion des Erreurs
+
+Les erreurs sont centralisées et renvoyées dans un format standardisé, avec un message clair et un code HTTP adapté. Cela facilite le suivi et le traitement des exceptions.
+
+---
+
+# Auteur
+
+Hafid Elmoudden II-BDCC 2
 
 #### Bon courage

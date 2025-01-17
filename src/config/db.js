@@ -13,7 +13,7 @@ let mongoClient, redisClient, db;
 async function connectMongo() {
   try {
     mongoClient = new MongoClient(config.mongodb.uri);
-    
+
     mongoClient.on('close', () => {
       console.error('MongoDB connection a été fermée, tentative de reconnection!');
       connectMongo();
@@ -36,21 +36,25 @@ async function connectMongo() {
 
 async function connectRedis() {
   try {
-    redisClient = redis.createClient(config.redis.uri);
+    redisClient = redis.createClient({ url: config.redis.uri });
+
+    await redisClient.connect();
 
     redisClient.on('error', (error) => {
       console.error('Erreur de connection à Redis:', error);
       process.exit(1);
     });
-  
+
     redisClient.on('connect', () => {
       console.log('Redis connecté avec succès');
     });
+
+    return redisClient;
   } catch (error) {
     console.error('Erreur de connection à Redis:', error);
     process.exit(1);
   }
-  
+
   // TODO: Implémenter la connexion Redis
   // Gérer les erreurs et les retries
 }
@@ -59,11 +63,11 @@ function getDatabase() {
   return db;
 }
 
-function closeMongo() {
+async function closeMongo() {
   mongoClient.close();
 }
 
-function closeRedis() {
+async function closeRedis() {
   redisClient.quit();
 }
 

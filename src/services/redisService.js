@@ -4,6 +4,7 @@
 // Question: Quelles sont les bonnes pratiques pour les clés Redis ?
 // Réponse : Utilisez un format pareil pour nommer les clés, évitez de faire des clés trop longues, 
 // et mettez des noms simples qui aident à comprendre et à résoudre les problèmes.
+const { connectRedis } = require("../config/db");
 
 // Fonctions utilitaires pour Redis
 async function cacheData(key, data, ttl) {
@@ -18,6 +19,7 @@ async function cacheData(key, data, ttl) {
 
 async function getCachedData(key) {
   const redisClient = await connectRedis();
+  
   try {
     const data = await redisClient.get(key);
     if (data) {
